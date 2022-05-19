@@ -13,5 +13,14 @@ namespace RecipeRatingWebsite
 
     public partial class Recipes
     {
+
+        /// <summary>
+        /// Kontrolka Repeater1.
+        /// </summary>
+        /// <remarks>
+        /// Pole generowane automatycznie.
+        /// Aby wprowadzić zmiany, przenieś deklarację pola z pliku projektanta do pliku codebehind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater Repeater1;
     }
 }

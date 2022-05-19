@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 using System.Web.Services;
 
 namespace MyServices
@@ -13,42 +11,38 @@ namespace MyServices
     [System.ComponentModel.ToolboxItem(false)]
     // Aby zezwalać na wywoływanie tej usługi sieci Web ze skryptu za pomocą kodu ASP.NET AJAX, usuń znaczniki komentarza z następującego wiersza. 
     // [System.Web.Script.Services.ScriptService]
-    public class ConnectionService : WebService
+    public class RecipesService : WebService
     {
 
         private string ConnectionString = "Data Source=ASUS-MRKOMUGIKO;Initial Catalog=WebRecipesDatabase;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
         [WebMethod]
-        public bool Login(LoginRequestDto data)
+        public List<RecipeRespondDto> GetAllRecipes()
         {
-            SqlConnection conn = new SqlConnection(ConnectionString);
-            conn.Open();
-            string command = "Select COUNT([Id]) from [Users]" +
-                             $" Where [UserName] = '{data.UserName}'" +
-                             $" AND [Password] = '{data.Password}';";
+            List<RecipeRespondDto> Recipes = new List<RecipeRespondDto>();
 
-            SqlCommand cmd = new SqlCommand(command, conn);
-
-            int matches = Int32.Parse(cmd.ExecuteScalar().ToString());
-            conn.Close();
-
-            return matches != 0 ? true:false;
-        }
-
-        [WebMethod]
-        public bool Register(RegisterRequestDto data)
-        {
-            string sql = $"INSERT INTO [Users]([Email], [UserName], [Birthday], [Name], [Password], [SecurityQuestion], [Answer], [GenderId])" +
-                             $"Values('{data.Email}', '{data.UserName}', {default(DateTime)}, '{(String.IsNullOrEmpty(data.Name)?null:data.Name)}', '{data.Password}', '{data.SecurityQuestion}', '{data.Answer}', '{data.GenderId}');";
+            string sql = "SELECT [Recipes].[Id], [Recipes].[Title], [Recipes].[Description], [Recipes].[UserId], [Recipes].[Created],[Recipes].[UrlImage]," +
+                        "Cast(AVG(Cast([Ratings].[Rate] as DECIMAL))as DECIMAL(10,2)) as [AvgRating], COUNT([Ratings].[Id]) as [TotalVotes]" +
+                        "FROM [Recipes]" +
+                        "LEFT JOIN [Ratings] as [Ratings] on [Ratings].[RecipeId] = [Recipes].[Id]" +
+                        "GROUP BY [Recipes].[Id], [Recipes].[Title], [Recipes].[Description], [Recipes].[UserId],[Recipes].[Created],[Recipes].[UrlImage];";
 
             using (SqlConnection conn = new SqlConnection(ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand(sql, conn);
-                
+
                 try
                 {
                     conn.Open();
-                    var result = cmd.ExecuteScalar();
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Recipes.Add(RecipeRespondDto.Map(reader));
+                    }
+
+                    reader.Close();
                 }
                 catch (Exception ex)
                 {
@@ -56,7 +50,7 @@ namespace MyServices
                 }
             }
 
-            return true;
+            return Recipes;
         }
     }
 }

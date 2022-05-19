@@ -1,6 +1,8 @@
-﻿using MyServices.ModelDTOs;
+﻿using MyServices.Enums;
+using MyServices.ModelDTOs;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -13,42 +15,32 @@ namespace MyServices
     [System.ComponentModel.ToolboxItem(false)]
     // Aby zezwalać na wywoływanie tej usługi sieci Web ze skryptu za pomocą kodu ASP.NET AJAX, usuń znaczniki komentarza z następującego wiersza. 
     // [System.Web.Script.Services.ScriptService]
-    public class ConnectionService : WebService
+    public class UserRespondDtosService : WebService
     {
 
         private string ConnectionString = "Data Source=ASUS-MRKOMUGIKO;Initial Catalog=WebRecipesDatabase;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
         [WebMethod]
-        public bool Login(LoginRequestDto data)
+        public List<UserRespondDto> GetAllUsers()
         {
-            SqlConnection conn = new SqlConnection(ConnectionString);
-            conn.Open();
-            string command = "Select COUNT([Id]) from [Users]" +
-                             $" Where [UserName] = '{data.UserName}'" +
-                             $" AND [Password] = '{data.Password}';";
+            List<UserRespondDto> Users = new List<UserRespondDto>();
 
-            SqlCommand cmd = new SqlCommand(command, conn);
-
-            int matches = Int32.Parse(cmd.ExecuteScalar().ToString());
-            conn.Close();
-
-            return matches != 0 ? true:false;
-        }
-
-        [WebMethod]
-        public bool Register(RegisterRequestDto data)
-        {
-            string sql = $"INSERT INTO [Users]([Email], [UserName], [Birthday], [Name], [Password], [SecurityQuestion], [Answer], [GenderId])" +
-                             $"Values('{data.Email}', '{data.UserName}', {default(DateTime)}, '{(String.IsNullOrEmpty(data.Name)?null:data.Name)}', '{data.Password}', '{data.SecurityQuestion}', '{data.Answer}', '{data.GenderId}');";
-
+            string sql = "SELECT [Id],[Email],[UserRespondDtoName],[Name],[Birthday],[GenderId] FROM[UserRespondDtos]";
             using (SqlConnection conn = new SqlConnection(ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand(sql, conn);
-                
+
                 try
                 {
                     conn.Open();
-                    var result = cmd.ExecuteScalar();
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Users.Add(UserRespondDto.Map(reader));
+                    }
+                    reader.Close();
                 }
                 catch (Exception ex)
                 {
@@ -56,7 +48,7 @@ namespace MyServices
                 }
             }
 
-            return true;
+            return Users;
         }
     }
 }
