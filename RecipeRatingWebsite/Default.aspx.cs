@@ -25,6 +25,11 @@ namespace RecipeRatingWebsite
                 Password = PasswordTextBox.Text
             });
 
+            if(respond)
+            {
+                Session["User"]=LoginTextBox.Text;
+                Response.Redirect("~/Recipes.aspx");
+            }
             Response.Write("<script>alert('"+ respond + "')</script>");
         }
     }
