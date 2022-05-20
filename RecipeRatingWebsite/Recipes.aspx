@@ -13,8 +13,10 @@
                             <div class="col-7 mt-auto ml-auto mb-auto">
                                 <div class="row">
                                     <img src="<%# GetStarImageUrl(Eval("TotalVotes")) %>" class="col-3 p-0">
-                                    <h6 class="p-1 text-center mt-auto mb-auto" style="font-weight:bold;"> <%# Eval("AvgRating") %></h6>
-                                    <h6 class="text-center mt-auto mb-auto" style="font-weight:100; font-size:0.85em;"> (<%# Eval("TotalVotes") %>)</h6>
+                                    <div class="col mt-auto mb-auto" style="vertical-align:middle;">
+                                        <h5 class="row m-0" style="font-weight:bold;"> <%# Eval("AvgRating") %></h5>
+                                        <h6 class="row m-0" style="font-weight:100; font-size:0.85em;"> (<%# Eval("TotalVotes") %> votes)</h6>
+                                    </div>
                                 </div>
                             </div>
                             <asp:Button CssClass="col-4 btn btn-primary w-50" runat="server" CommandArgument='<%# Eval("ID") %>' Text="Details" />

@@ -14,6 +14,10 @@ namespace RecipeRatingWebsite
         protected void Page_Load(object sender, EventArgs e)
         {
             ValidationSettings.UnobtrusiveValidationMode = UnobtrusiveValidationMode.None;
+            if (Session["User"] != null)
+            {
+                Response.Redirect("~/Recipes.aspx");
+            }
         }
 
         protected void LoginBtn_Click(object sender, EventArgs e)

@@ -50,14 +50,14 @@ namespace MyServices
                 {
                     conn.Open();
                     var result = cmd.ExecuteScalar();
+                    return (bool)result;
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
+                    return false;
                 }
             }
-
-            return true;
         }
     }
 }

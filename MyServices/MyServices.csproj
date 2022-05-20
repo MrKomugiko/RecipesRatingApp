@@ -79,13 +79,15 @@
     </Compile>
     <Compile Include="Enums\GenderEnum.cs" />
     <Compile Include="ModelDTOs\LoginRequestDto.cs" />
+    <Compile Include="ModelDTOs\RecipeRequestDto.cs" />
     <Compile Include="ModelDTOs\RecipeRespondDto.cs" />
     <Compile Include="ModelDTOs\RegisterRequestDto.cs" />
     <Compile Include="ModelDTOs\UserRespondDto.cs" />
-    <Compile Include="Models\Ratings.cs" />
-    <Compile Include="Models\Recipes.cs" />
+    <Compile Include="Models\Rating.cs" />
+    <Compile Include="Models\Recipe.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ModelDTOs\RecipeAddRequestDto.cs" />
     <Compile Include="RecipesService.asmx.cs">
       <DependentUpon>RecipesService.asmx</DependentUpon>
       <SubType>Component</SubType>

@@ -1,4 +1,5 @@
 ﻿using MyServices.ModelDTOs;
+using MyServices.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -52,6 +53,60 @@ namespace MyServices
             }
 
             return Recipes;
+        }
+
+        [WebMethod]
+        public Recipe GetRecipeById(int _id)
+        {
+            string sql = $"SELECT TOP 1 * FROM [Recipes] WHERE [Id]={_id};";
+            Recipe result = new Recipe();
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand(sql, conn);
+
+                conn.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader(System.Data.CommandBehavior.SingleRow);
+
+                if (!reader.HasRows) return null;
+
+                while (reader.Read())
+                {
+                    result = Recipe.Map(reader);
+                }
+
+                reader.Close();
+
+                return result;               
+            }
+        }
+
+        [WebMethod]
+        public Recipe Add(RecipeAddRequestDto _recipe)
+        {
+            string sql = $"INSERT INTO [Recipes] ( [Title], [Description], [UserId], [UrlImage] ) " +
+                         $"VALUES ( {_recipe.Id}, {_recipe.Title}, {_recipe.Description}, {_recipe.UserId}, {_recipe.UrlImage} );";
+
+            Recipe result = new Recipe();
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand(sql, conn);
+
+                conn.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader(System.Data.CommandBehavior.SingleRow);
+
+                if (!reader.HasRows) return null;
+
+                while (reader.Read())
+                {
+                    result = Recipe.Map(reader);
+                }
+
+                reader.Close();
+
+                return result;
+            }
         }
     }
 }
