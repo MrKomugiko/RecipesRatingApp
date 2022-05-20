@@ -2,6 +2,7 @@
 using MyServices.ModelDTOs;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace MyServices
     public class UserRespondDtosService : WebService
     {
 
-        private string ConnectionString = "Data Source=ASUS-MRKOMUGIKO;Initial Catalog=WebRecipesDatabase;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        private string ConnectionString = ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString;
 
         [WebMethod]
         public List<UserRespondDto> GetAllUsers()
