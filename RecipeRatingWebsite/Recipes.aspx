@@ -4,9 +4,9 @@
     <div class="row">
         <asp:Repeater ID="Repeater1" runat="server" OnItemCommand="Repeater1_ItemCommand">
             <ItemTemplate>
-                <div class="col-6 col-sm-4 col-md-3 pb-2">
-                    <div class="card m-1 h-100">
-                        <img class="card-img-top" src="<%# Eval("UrlImage") %>" style="height:12rem;" alt="Card image cap">
+                <div class="col-6 col-sm-4 col-md-3 pb-3 p-1">
+                    <div class="card m-1 h-100"  style="border-radius:1rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .35), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"">
+                        <img class="card-img-top" src="<%# Eval("UrlImage") %>" style="height:12rem; border-radius: 1rem 1rem 0 0;">
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title"><%# Eval("Title") %></h5>
                             <p class="card-text"><%# Eval("Description") %></p>

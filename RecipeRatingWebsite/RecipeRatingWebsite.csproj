@@ -109,17 +109,59 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
-    <None Include="Connected Services\MyServices\ConnectionService.disco" />
-    <None Include="Connected Services\MyServices\configuration91.svcinfo" />
-    <None Include="Connected Services\MyServices\configuration.svcinfo" />
     <Content Include="AddRecipe.aspx" />
-    <Content Include="Connected Services\MyServices\RecipeRatingWebsite.MyServices.HelloWorldResponse.datasource">
+    <None Include="Connected Services\MyServices_ConnectionService\ConnectionService.disco" />
+    <None Include="Connected Services\MyServices_ConnectionService\configuration91.svcinfo" />
+    <None Include="Connected Services\MyServices_ConnectionService\configuration.svcinfo" />
+    <Content Include="Connected Services\MyServices_ConnectionService\RecipeRatingWebsite.MyServices_ConnectionService.LoginResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
-    <Content Include="Connected Services\MyServices\RecipeRatingWebsite.MyServices.LoginResponse.datasource">
+    <Content Include="Connected Services\MyServices_ConnectionService\RecipeRatingWebsite.MyServices_ConnectionService.RegisterResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
-    <None Include="Connected Services\MyServices\Reference.svcmap">
+    <Content Include="Connected Services\MyServices_ConnectionService\RecipeRatingWebsite.MyServices_ConnectionService.RegisterResultDto.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\MyServices_ConnectionService\RecipeRatingWebsite.MyServices_ConnectionService.UserRespondDto.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Connected Services\MyServices_ConnectionService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Connected Services\MyServices_RecipessService\RecipeRatingWebsite.MyServices_RecipessService.AddResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\MyServices_RecipessService\RecipeRatingWebsite.MyServices_RecipessService.GetAllRecipesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\MyServices_RecipessService\RecipeRatingWebsite.MyServices_RecipessService.GetRecipeByIdResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\MyServices_RecipessService\RecipeRatingWebsite.MyServices_RecipessService.Recipe.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\MyServices_RecipessService\RecipeRatingWebsite.MyServices_RecipessService.RecipeRespondDto.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Connected Services\MyServices_ConnectionService\ConnectionService.wsdl" />
+    <None Include="Connected Services\MyServices_RecipessService\RecipesService.disco" />
+    <None Include="Connected Services\MyServices_RecipessService\configuration91.svcinfo" />
+    <None Include="Connected Services\MyServices_RecipessService\configuration.svcinfo" />
+    <None Include="Connected Services\MyServices_RecipessService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Connected Services\MyServices_UsersService\RecipeRatingWebsite.MyServices_UsersService.GetAllUsersResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\MyServices_UsersService\RecipeRatingWebsite.MyServices_UsersService.UserRespondDto.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Connected Services\MyServices_UsersService\UsersService.disco" />
+    <None Include="Connected Services\MyServices_UsersService\configuration91.svcinfo" />
+    <None Include="Connected Services\MyServices_UsersService\configuration.svcinfo" />
+    <None Include="Connected Services\MyServices_UsersService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -130,9 +172,12 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <None Include="Connected Services\MyServices\ConnectionService.wsdl" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <None Include="Connected Services\MyServices_RecipessService\RecipesService.wsdl" />
+    <None Include="Connected Services\MyServices_UsersService\UsersService.wsdl" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -277,7 +322,17 @@
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Connected Services\MyServices\Reference.cs">
+    <Compile Include="Connected Services\MyServices_ConnectionService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\MyServices_RecipessService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\MyServices_UsersService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -369,19 +424,15 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\MyServices\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MyServices\MyServices.csproj">
-      <Project>{1F381A56-FA30-4468-BEE5-4AA6A76803A1}</Project>
-      <Name>MyServices</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\MyServices_ConnectionService\" />
+    <WCFMetadataStorage Include="Connected Services\MyServices_RecipessService\" />
+    <WCFMetadataStorage Include="Connected Services\MyServices_UsersService\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -3,7 +3,7 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
      <div class="col-md-8 ml-auto mr-auto mt-3">
         <div class="row">
-            <div class="col-6 mt-auto mb-auto">
+            <div class="order-last col-12 col-md-6 mt-auto mb-auto">
                 <div class="forn-group"> 
                     <asp:TextBox runat="server" Id="TitleTextBox" 
                         onkeyup="Preview(this,'Title')"
@@ -40,10 +40,10 @@
                     <asp:Button ID="SubmitButton" runat="server" Text="Submit" OnClick="SubmitButton_Click" CssClass="form-control btn btn-outline-primary col-4" />
                 </div>
             </div>
-            <div class="col-6 text-center">
+            <div class="order-first order-md-last col-12 col-md-6 mb-4 text-center">
                <div> Preview: </div>
-                <div class="card col-3">
-                    <asp:Image ID="Image" runat="server" CssClass="card-img-top" style="height:12rem;" alt="Card image cap" ImageUrl="https://trimurl.co/JYKFkn"/>
+                <div class="card m-1" style="border-radius:1rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .35), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
+                    <asp:Image ID="Image" runat="server" CssClass="card-img-top" style="height:12rem; border-radius: 1rem 1rem 0 0;" alt="Card image cap" ImageUrl="https://trimurl.co/JYKFkn"/>
                     <div class="card-body d-flex flex-column p-2">
                         <h5 id="Title" class="card-title"><asp:Literal runat="server" Id="TitleLt"></asp:Literal></h5>
                         <p id="Description" class="card-text"><asp:Literal runat="server" Id="DescriptionLt"></asp:Literal></p>

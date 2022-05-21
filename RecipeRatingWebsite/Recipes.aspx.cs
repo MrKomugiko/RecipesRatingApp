@@ -1,17 +1,14 @@
-﻿using MyServices;
-using MyServices.ModelDTOs;
+﻿using RecipeRatingWebsite.MyServices_ConnectionService;
+using RecipeRatingWebsite.MyServices_RecipessService;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace RecipeRatingWebsite
 {
     public partial class Recipes : System.Web.UI.Page
     {
-        public List<RecipeRespondDto> RecipesList = new List<RecipeRespondDto>();
+        public RecipeRespondDto[] RecipesList;
         public string StarUrl = "https://zaufane.pl/upload/filemanager/icons/star-filled-yellow.svg";
         public string UnratedStarUrl = "https://icons-for-free.com/download-icon-favorite+favourite+rating+star+icon-1320183290216374827_512.png";
 
@@ -23,8 +20,8 @@ namespace RecipeRatingWebsite
             }
             else
             {
-                RecipesService rs = new RecipesService();
-                List<RecipeRespondDto> respond = rs.GetAllRecipes();
+                var client = new RecipesServiceSoapClient();
+                RecipeRespondDto[] respond = client.GetAllRecipes();
 
                 RecipesList = respond;
 

@@ -10,7 +10,7 @@ using System.Web.Services;
 
 namespace MyServices
 {
-    [WebService(Namespace = "http://tempuri.org/")]
+    [WebService(Namespace = "http://myservices.somee.com/ConnectionService")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     // Aby zezwalać na wywoływanie tej usługi sieci Web ze skryptu za pomocą kodu ASP.NET AJAX, usuń znaczniki komentarza z następującego wiersza. 
@@ -57,27 +57,30 @@ namespace MyServices
         }
 
         [WebMethod]
-        public bool Register(RegisterRequestDto data)
+        public RegisterResultDto Register(RegisterRequestDto data)
         {
+            RegisterResultDto result = new RegisterResultDto();
             string sql = $"INSERT INTO [Users]([Email], [UserName], [Birthday], [Name], [Password], [SecurityQuestion], [Answer], [GenderId])" +
-                             $"Values('{data.Email}', '{data.UserName}', {default(DateTime)}, '{(String.IsNullOrEmpty(data.Name)?null:data.Name)}', '{data.Password}', '{data.SecurityQuestion}', '{data.Answer}', '{data.GenderId}');";
+                             $"Values('{data.Email}', '{data.UserName}', Cast({"1-1-1"} as DATETIME), '{(String.IsNullOrEmpty(data.Name) ? null : data.Name)}', '{data.Password}', '{data.SecurityQuestion}', '{data.Answer}', '{data.GenderId}');";
 
             using (SqlConnection conn = new SqlConnection(ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand(sql, conn);
-                
+
                 try
                 {
                     conn.Open();
-                    var result = cmd.ExecuteScalar();
-                    return (bool)result;
+                    var rowsaffected = cmd.ExecuteNonQuery();
+                    result.Success = rowsaffected == 1;
+                    result.Message = "Succes, account created";
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
-                    return false;
+                    result.Success = false;
+                    result.Message = ex.Message;
                 }
             }
+            return result;
         }
     }
 }

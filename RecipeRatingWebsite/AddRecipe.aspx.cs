@@ -1,11 +1,6 @@
-﻿using MyServices;
-using MyServices.ModelDTOs;
+﻿using RecipeRatingWebsite.MyServices_ConnectionService;
+using RecipeRatingWebsite.MyServices_RecipessService;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace RecipeRatingWebsite
 {
@@ -24,7 +19,7 @@ namespace RecipeRatingWebsite
 
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
-            RecipesService rs = new RecipesService();
+            var rs = new RecipesServiceSoapClient();
             rs.Add(new RecipeAddRequestDto()
             {
                 Title = TitleTextBox.Text,

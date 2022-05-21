@@ -1,5 +1,4 @@
-﻿using MyServices;
-using MyServices.ModelDTOs;
+﻿using RecipeRatingWebsite.MyServices_ConnectionService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +16,9 @@ namespace RecipeRatingWebsite
 
         protected void ConfirmBtn_Click(object sender, EventArgs e)
         {
-            ConnectionService cs = new ConnectionService();
-            bool respond = cs.Register(new RegisterRequestDto()
+            var cs = new ConnectionServiceSoapClient();
+            RegisterResultDto respond = new RegisterResultDto();
+            respond = cs.Register(new RegisterRequestDto()
             {
                 UserName = LoginTextBox.Text,
                 Email = EmailTextBox.Text,

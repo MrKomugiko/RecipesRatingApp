@@ -1,11 +1,10 @@
-﻿using System;
+﻿using RecipeRatingWebsite.MyServices_ConnectionService;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using MyServices;
-using MyServices.ModelDTOs;
 
 namespace RecipeRatingWebsite
 {
@@ -22,7 +21,7 @@ namespace RecipeRatingWebsite
 
         protected void LoginBtn_Click(object sender, EventArgs e)
         {
-            ConnectionService cs = new ConnectionService();
+            var cs = new ConnectionServiceSoapClient();
             UserRespondDto user = cs.Login(new LoginRequestDto()
             {
                 UserName = LoginTextBox.Text,
