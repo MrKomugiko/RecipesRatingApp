@@ -20,20 +20,39 @@ namespace MyServices
         private string ConnectionString = ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString;
 
         [WebMethod]
-        public bool Login(LoginRequestDto data)
+        public UserRespondDto Login(LoginRequestDto data)
         {
-            SqlConnection conn = new SqlConnection(ConnectionString);
-            conn.Open();
-            string command = "Select COUNT([Id]) from [Users]" +
+            string command = "Select TOP 1 * from [Users]" +
                              $" Where [UserName] = '{data.UserName}'" +
                              $" AND [Password] = '{data.Password}';";
 
-            SqlCommand cmd = new SqlCommand(command, conn);
+            UserRespondDto user = null;
 
-            int matches = Int32.Parse(cmd.ExecuteScalar().ToString());
-            conn.Close();
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand(command, conn);
 
-            return matches != 0 ? true:false;
+                try
+                {
+                    conn.Open();
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        user = (UserRespondDto.Map(reader));
+                    }
+                 
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return null;
+                }
+            }
+
+            return user;
         }
 
         [WebMethod]

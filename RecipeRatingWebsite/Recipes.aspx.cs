@@ -17,7 +17,7 @@ namespace RecipeRatingWebsite
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["User"] == null)
+            if (((UserRespondDto)Session["User"]) == null)
             {
                 Response.Redirect("~/Default.aspx");
             }

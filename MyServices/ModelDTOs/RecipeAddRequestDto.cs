@@ -5,8 +5,6 @@ namespace MyServices
     public class RecipeAddRequestDto
     {
         [Required]
-        public int Id { get; set; }
-        [Required]
         public int UserId { get; set; }
         [Required] [MaxLength(50)]
         public string Title { get; set; }

@@ -13,10 +13,10 @@ namespace MyServices.Models
         [Key]
         public int Id { get; set; }
         [Required]
-        [MaxLength(50)]
+        [MaxLength(255)]
         public string Title { get; set; }
         [Required]
-        [MaxLength(255)]
+        [MaxLength(500)]
         public string Description { get; set; }
         [MaxLength(255)]
         public string UrlImage { get; set; } = "https://trimurl.co/JYKFkn";

@@ -85,7 +85,7 @@ namespace MyServices
         public Recipe Add(RecipeAddRequestDto _recipe)
         {
             string sql = $"INSERT INTO [Recipes] ( [Title], [Description], [UserId], [UrlImage] ) " +
-                         $"VALUES ( {_recipe.Id}, {_recipe.Title}, {_recipe.Description}, {_recipe.UserId}, {_recipe.UrlImage} );";
+                         $"VALUES ( '{_recipe.Title}', '{_recipe.Description}', '{_recipe.UserId}', '{_recipe.UrlImage}' );";
 
             Recipe result = new Recipe();
             using (SqlConnection conn = new SqlConnection(ConnectionString))

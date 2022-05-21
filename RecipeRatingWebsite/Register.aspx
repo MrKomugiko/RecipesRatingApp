@@ -1,4 +1,4 @@
-﻿<%@ Page Title="REgister" Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.Master"  CodeBehind="Register.aspx.cs" Inherits="RecipeRatingWebsite.Register" %>
+﻿<%@ Page Title="Register" Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.Master"  CodeBehind="Register.aspx.cs" Inherits="RecipeRatingWebsite.Register" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
    <div class="row text-center pb-4">

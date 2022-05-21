@@ -112,6 +112,7 @@
     <None Include="Connected Services\MyServices\ConnectionService.disco" />
     <None Include="Connected Services\MyServices\configuration91.svcinfo" />
     <None Include="Connected Services\MyServices\configuration.svcinfo" />
+    <Content Include="AddRecipe.aspx" />
     <Content Include="Connected Services\MyServices\RecipeRatingWebsite.MyServices.HelloWorldResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -260,6 +261,13 @@
     <Content Include="Site.Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddRecipe.aspx.cs">
+      <DependentUpon>AddRecipe.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddRecipe.aspx.designer.cs">
+      <DependentUpon>AddRecipe.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>

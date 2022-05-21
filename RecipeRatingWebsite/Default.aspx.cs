@@ -14,7 +14,7 @@ namespace RecipeRatingWebsite
         protected void Page_Load(object sender, EventArgs e)
         {
             ValidationSettings.UnobtrusiveValidationMode = UnobtrusiveValidationMode.None;
-            if (Session["User"] != null)
+            if (((UserRespondDto)Session["User"]) != null)
             {
                 Response.Redirect("~/Recipes.aspx");
             }
@@ -23,18 +23,18 @@ namespace RecipeRatingWebsite
         protected void LoginBtn_Click(object sender, EventArgs e)
         {
             ConnectionService cs = new ConnectionService();
-            bool respond = cs.Login(new LoginRequestDto()
+            UserRespondDto user = cs.Login(new LoginRequestDto()
             {
                 UserName = LoginTextBox.Text,
                 Password = PasswordTextBox.Text
             });
 
-            if(respond)
+            if(user != null)
             {
-                Session["User"]=LoginTextBox.Text;
+                Session["User"] = user;
                 Response.Redirect("~/Recipes.aspx");
             }
-            Response.Write("<script>alert('"+ respond + "')</script>");
+            Response.Write("<script>alert('"+ user + "')</script>");
         }
     }
 }
