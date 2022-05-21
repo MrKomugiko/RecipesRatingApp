@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -38,12 +39,12 @@ namespace MyServices
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
-                    while (reader.Read())
-                    {
-                        user = (UserRespondDto.Map(reader));
-                    }
-                 
-                    reader.Close();
+                    DataTable dt = new DataTable();
+                    dt.Load(reader);
+
+                    user = (UserRespondDto.Map(dt.Rows[0]));
+                    
+
                 }
                 catch (Exception ex)
                 {

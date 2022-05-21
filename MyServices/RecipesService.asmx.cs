@@ -3,6 +3,7 @@ using MyServices.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Web.Services;
 
@@ -32,25 +33,16 @@ namespace MyServices
             using (SqlConnection conn = new SqlConnection(ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand(sql, conn);
+                conn.Open();
 
-                try
-                {
-                    conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
 
-                    SqlDataReader reader = cmd.ExecuteReader();
+                DataTable dt = new DataTable();
+                dt.Load(reader);
 
-                    while (reader.Read())
-                    {
-                        Recipes.Add(RecipeRespondDto.Map(reader));
-                    }
-
-                    reader.Close();
+                foreach(DataRow row in dt.Rows)
+                    Recipes.Add(RecipeRespondDto.Map(row));
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            }
 
             return Recipes;
         }
@@ -63,19 +55,17 @@ namespace MyServices
             using (SqlConnection conn = new SqlConnection(ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand(sql, conn);
-
                 conn.Open();
-
-                SqlDataReader reader = cmd.ExecuteReader(System.Data.CommandBehavior.SingleRow);
+                
+                SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.SingleRow);
 
                 if (!reader.HasRows) return null;
 
-                while (reader.Read())
-                {
-                    result = Recipe.Map(reader);
-                }
-
-                reader.Close();
+                DataTable dt = new DataTable();
+                dt.Load(reader);
+                DataRow row = dt.Rows[0];
+ 
+                result = Recipe.Map(row);
 
                 return result;               
             }
@@ -91,20 +81,20 @@ namespace MyServices
             using (SqlConnection conn = new SqlConnection(ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand(sql, conn);
-
                 conn.Open();
-
-                SqlDataReader reader = cmd.ExecuteReader(System.Data.CommandBehavior.SingleRow);
+                
+                SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.SingleRow);
 
                 if (!reader.HasRows) return null;
 
-                while (reader.Read())
+                DataTable dt = new DataTable();
+                dt.Load(reader);
+
+                foreach(DataRow row in dt.Rows)
                 {
-                    result = Recipe.Map(reader);
+                    result = Recipe.Map(row);
                 }
-
-                reader.Close();
-
+               
                 return result;
             }
         }

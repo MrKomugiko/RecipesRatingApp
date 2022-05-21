@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -28,16 +29,22 @@ namespace MyServices.Models
         [ForeignKey("UserId")]
         public User User{ get; set; }
 
-        public static Recipe Map(SqlDataReader reader)
+        public static Recipe Map(DataRow dr)
         {
             Recipe recipe = new Recipe
             {
-                Id = (int)reader.GetValue(reader.GetOrdinal("Id")),
-                Title = (string)reader.GetValue(reader.GetOrdinal("Title")),
-                Description = (string)reader.GetValue(reader.GetOrdinal("Description")),
-                UserId = (int)reader.GetValue(reader.GetOrdinal("UserId")),
-                Created = (DateTime)reader.GetValue(reader.GetOrdinal("Created")),
-                UrlImage = (string)reader.GetValue(reader.GetOrdinal("UrlImage"))
+                //Id = (int)reader.GetValue(reader.GetOrdinal("Id")),
+                //Title = (string)reader.GetValue(reader.GetOrdinal("Title")),
+                //Description = (string)reader.GetValue(reader.GetOrdinal("Description")),
+                //UserId = (int)reader.GetValue(reader.GetOrdinal("UserId")),
+                //Created = (DateTime)reader.GetValue(reader.GetOrdinal("Created")),
+                //UrlImage = (string)reader.GetValue(reader.GetOrdinal("UrlImage"))
+                Id =             (int) dr["Id"],
+                Title =       (string) dr["Title"],
+                Description = (string) dr["Description"],
+                UserId =         (int) dr["UserId"],
+                Created =   (DateTime) dr["Created"],
+                UrlImage =    (string) dr["UrlImage"]
             };
 
             return recipe;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -17,18 +18,18 @@ namespace MyServices.ModelDTOs
         public float AvgRating { get; set; }
         public int TotalVotes { get; set; }
 
-        public static RecipeRespondDto Map(SqlDataReader reader)
+        public static RecipeRespondDto Map(DataRow row)
         {
             RecipeRespondDto recipe = new RecipeRespondDto
             {
-                Id = (int)reader.GetValue(reader.GetOrdinal("Id")),
-                Title = (string)reader.GetValue(reader.GetOrdinal("Title")),
-                Description = (string)reader.GetValue(reader.GetOrdinal("Description")),
-                UserId = (int)reader.GetValue(reader.GetOrdinal("UserId")),
-                Created = (DateTime)reader.GetValue(reader.GetOrdinal("Created")),
-                UrlImage = (string)reader.GetValue(reader.GetOrdinal("UrlImage")),
-                AvgRating = reader.IsDBNull(reader.GetOrdinal("AvgRating")) ? 0 : (float)(decimal)reader.GetValue(reader.GetOrdinal("AvgRating")),
-                TotalVotes = (int)reader.GetValue(reader.GetOrdinal("TotalVotes"))
+                Id =             (int) row["Id"],           
+                Title =       (string) row["Title"],         
+                Description = (string) row["Description"],     
+                UserId =         (int) row["UserId"],           
+                Created =   (DateTime) row["Created"],        
+                UrlImage =    (string) row["UrlImage"],         
+                AvgRating =    (float) (row.IsNull("AvgRating")?0:(decimal)row["AvgRating"]),           
+                TotalVotes =     (int) row["TotalVotes"],            
             };
 
             return recipe;
